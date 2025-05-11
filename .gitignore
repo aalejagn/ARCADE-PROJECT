@@ -1,0 +1,47 @@
+### Godot ###
+# Archivos generados por Godot
+*.import/
+.godot/
+export_presets.cfg
+*.uid
+*.tscn.import
+*.gd.import
+*.translation.import
+
+# Editor de Godot (configuraciones locales)
+.godot/editor_data/
+
+### Python ###
+# Entornos virtuales
+venv/
+env/
+.env/
+.env23270631
+*.env
+
+# Archivos de caché y compilados
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+dist/
+build/
+
+# Configuración de IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de usuario y temporales
+*.log
+*.tmp
+*.bak
+
+# Archivos de Godot 4 específicos (si usas versión 4+)
+.godot/editor/
+.godot/export_templates/
