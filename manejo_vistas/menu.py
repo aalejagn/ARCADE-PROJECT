@@ -2,11 +2,7 @@ import arcade
 from arcade.gui import UIManager, UIFlatButton
 from arcade.gui.widgets.layout import UIAnchorLayout
 
-
-
-#!----------------11/Mayo/2025 : Creacion del Menu-----------------------
-SCREEN_TITLE = "Retro Racing - Menú Principal"
-
+# ----------------11/Mayo/2025 : Creacion del Menu-----------------------
 class MainMenu(arcade.View):
     def __init__(self):
         super().__init__()
@@ -19,30 +15,22 @@ class MainMenu(arcade.View):
         self.ui_manager.clear()  # Cambiado de purge_ui_elements() a clear()
 
         # --- Título ---
-        
         self.title = arcade.Text(
             # Texto a mostrar (cadena)
             "RETRO RACING",
-            
             # Posición X (centrado horizontalmente)
             self.window.width // 2,  
-            
             # Posición Y (65% de la altura de la pantalla)
             self.window.height * 0.65,
-            
             # Color del texto (usando constantes predefinidas de arcade)
             # Alternativas: arcade.color.GOLD, arcade.color.NEON_CARROT, arcade.color.ELECTRIC_CRIMSON
             arcade.color.BLACK_LEATHER_JACKET,
-            
             # Tamaño de fuente en píxeles (80 es grande para títulos)
             100,
-            
             # Alineación horizontal ('center', 'left' o 'right')
             anchor_x="center",
-            
             # Negrita (True/False)
             bold=True,
-            
             # Nombre de la fuente (puede ser una cadena o tupla con fuentes alternativas)
             # Fuentes recomendadas para estilo retro:
             # - "Kenney Future" (descargable gratis de kenney.nl)
@@ -51,7 +39,6 @@ class MainMenu(arcade.View):
             font_name=("Agency FB")  # Tupla de fuentes alternativas
         )
         self.title.draw()  # Luego el texto principal
-        
 
         anchor_layout = UIAnchorLayout(
             size_hint=(1, 1)  # Ocupa toda la pantalla
@@ -64,7 +51,7 @@ class MainMenu(arcade.View):
         button_options = [
             ("UN JUGADOR", self.start_single_player),  # Botón para modo un jugador
             ("MULTIJUGADOR", self.start_multiplayer),  # Botón para modo multijugador
-            ("CONFIGURACIONES", self.open_settings)    # Botón para ajustes del juego
+            ("CONFIGURACIONES", self.open_settings)
         ]
         
         # Bucle que crea y posiciona cada botón central
@@ -125,36 +112,40 @@ class MainMenu(arcade.View):
         )
 
     def on_show_view(self):
-            """Método que se ejecuta automáticamente cuando esta vista (menú) se muestra.
-            Realiza dos acciones esenciales:
-            1. self.setup() - Prepara/recarga todos los elementos del menú
-            2. self.ui_manager.enable() - Activa el sistema de interfaz de usuario para que responda a eventos"""
-            self.setup()
-            self.ui_manager.enable()
+        """Método que se ejecuta automáticamente cuando esta vista (menú) se muestra.
+        Realiza dos acciones esenciales:
+        1. self.setup() - Prepara/recarga todos los elementos del menú
+        2. self.ui_manager.enable() - Activa el sistema de interfaz de usuario para que responda a eventos"""
+        self.setup()
+        self.ui_manager.enable()
 
     def on_hide_view(self):
-            """Método que se ejecuta automáticamente cuando esta vista (menú) se oculta.
-            Realiza una acción crítica:
-            1. self.ui_manager.disable() - Desactiva el sistema de interfaz para liberar recursos
-            y evitar que siga procesando eventos cuando no es visible"""
-            self.ui_manager.disable()
+        """Método que se ejecuta automáticamente cuando esta vista (menú) se oculta.
+        Realiza una acción crítica:
+        1. self.ui_manager.disable() - Desactiva el sistema de interfaz para liberar recursos
+        y evitar que siga procesando eventos cuando no es visible"""
+        self.ui_manager.disable()
 
     def on_draw(self):
-            """Método que se ejecuta en cada frame para dibujar todos los elementos gráficos.
-            Sigue un orden de renderizado específico:
-            1. self.clear() - Limpia la pantalla con el color de fondo establecido
-            2. if self.title: - Verificación de seguridad para asegurar que el título existe
-            self.title.draw() - Dibuja el texto del título principal
-            3. self.ui_manager.draw() - Dibuja todos los elementos de la interfaz (botones, etc.)
-            
-            Nota: El orden es importante para que los elementos se superpongan correctamente"""
-            self.clear()
-            if self.title:  # Verificamos que el título exista
-                self.title.draw()
-            self.ui_manager.draw()
+        """Método que se ejecuta en cada frame para dibujar todos los elementos gráficos.
+        Sigue un orden de renderizado específico:
+        1. self.clear() - Limpia la pantalla con el color de fondo establecido
+        2. if self.title: - Verificación de seguridad para asegurar que el título existe
+        self.title.draw() - Dibuja el texto del título principal
+        3. self.ui_manager.draw() - Dibuja todos los elementos de la interfaz (botones, etc.)
+        
+        Nota: El orden es importante para que los elementos se superpongan correctamente"""
+        self.clear()
+        if self.title:  # Verificamos que el título exista
+            self.title.draw()
+        self.ui_manager.draw()
 
     # Funciones de botones (mantenemos el event aunque no se use)
     def start_single_player(self, event=None):
+        # todo: Configurando el boton para mmanejar mis funciones creadas en el archivo game
+        from .game import GameView
+        game_viem = GameView()
+        self.window.show_view(game_viem)
         print("Iniciando un jugador...")
 
     def start_multiplayer(self, event=None):
@@ -168,15 +159,3 @@ class MainMenu(arcade.View):
 
     def open_credits(self, event=None):
         print("Mostrando créditos...")
-
-def main():
-    window = arcade.Window(
-        fullscreen=True,
-        title=SCREEN_TITLE,
-        resizable=False)  # Evita redimensionamiento
-    menu_view = MainMenu()
-    window.show_view(menu_view)
-    arcade.run()
-
-if __name__ == "__main__":
-    main()
